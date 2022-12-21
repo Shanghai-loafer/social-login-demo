@@ -1,1 +1,28 @@
+app:
+  frontend:
+    url: public/index.html
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1097246116138-dipdk13hgpg8mhuecl6chesfab3fhu52.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+          github:
+            clientId: af93f539bab7a98d215a
+            clientSecret: 2ec1f0ab3c1cd64239680760d2866bd79bd1caa0
+            redirectUri: http://localhost:8080/login/oauth2/code/github
+            scope:
+              - read:user
+        provider:
+          github:
+            authorizationUri: https://github.com/login/oauth/authorize
+            tokenUri: https://github.com/login/oauth/access_token
+            userInfoUri: https://api.github.com/user
+          google:
+            authorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+            tokenUri: https://oauth2.googleapis.com/token
+            userInfoUri: https://www.googleapis.com/userinfo/v2/me
