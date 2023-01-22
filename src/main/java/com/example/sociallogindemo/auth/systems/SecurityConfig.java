@@ -20,7 +20,6 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(customizer -> customizer
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                        .requestMatchers("/resources/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(customizer -> customizer

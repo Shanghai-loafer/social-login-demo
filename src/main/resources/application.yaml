@@ -1,8 +1,6 @@
-app:
-  frontend:
-    url: public/index.html
-
 spring:
+  mvc:
+    static-path-pattern: /static/**
   security:
     oauth2:
       client:
