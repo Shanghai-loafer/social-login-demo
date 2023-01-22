@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+// TODO tsxの形式に書き直してあげる
+
 export const ApiFetch = () => {
     const [stones, setStone] = useState([]);
 

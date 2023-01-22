@@ -1,46 +1,42 @@
-# このリポジトリの方針
+# 概要
+## 特徴
+* ソーシャルログインをSpring側で実装
+* ReactをTypeScriptで実装し、ビルド後にSpring側でテンプレートエンジンで機能
+  * ただし、テンプレートエンジンを利用するのはログインページのみ
 
-参考文献
-
-https://www.hypertextcandy.com/create-react-app-on-spring-boot
-
-## ReactとSpring
-フロントエンドをReact、バックエンドをSpringBootで構成する
-
-## 手順
-### Springを立てる
+# 詳細
+## 環境構築手順
+### 1. Springを立てる
 イニシャライザーとかを使用してなんやかんや良い感じのものを作る。
 
-### Reactを立てる
+### 2. Reactを立てる
 ```bash
-$ npx create-react-app --template typescript frontend
+$ npx create-react-app --template typescript ui
 ```
 
-### 動かないビルドファイル
-Create React App には出力先をカスタマイズするオプションはありません。
-そこで、build コマンド実行後にビルド結果を Spring Boot から配信できる位置に移動させるスクリプトを書いてしまいます。
-package.json の scripts に、postbuild タスクを追加します。
-npm の機能で、postxxx というタスクを定義すると、xxx タスクの完了後に自動的に実行されます。
-(なぜjsかというと、nodeにすれば、bashの様にサーバのOSに依存しないから。あとコンパイル不要)
-src/main/resources/public はビルド結果なので .gitignore に含めていいでしょう。
-
+### 3. package.jsonにプロキシーを設定
 ```json
-  "proxy": "http://localhost:8080",
-
-    "homepage": "./",
-
-      "scripts": {
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node ./postbuild.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
     },
+"proxy": "http://localhost:8080",
+"eslintConfig": {
+"extends": [
+    "react-app",
+    "react-app/jest"
+    ]
+},
 ```
 
-## 特徴
-* ReactをTypeScriptで実装し、クロスコンパイルして、Springの所定のディレクトリにビルド結果を格納
-* Gradleのビルドの中にReactのコンパイルも入れたい。
-* gitignoreなんかも丁寧に挿入していきたい。
-* 認証関連もサクッと入れておきたい。
-* ログもAOPを使って、効率的にログを生成していきたい。
+### 4. build.gradle.ktsにui側の情報を設定
+Create React App には出力先をカスタマイズするオプションはありません。
+そこで、build コマンド実行後にビルド結果を Spring Boot から配信できる位置に移動させるスクリプトを書いてしまいます。
+src/main/resources/public はビルド結果なので .gitignore に含めていいでしょう。
+
+詳しくは、そっちのファイル参照のこと
+
+# 参考文献
+* https://www.hypertextcandy.com/create-react-app-on-spring-boot

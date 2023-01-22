@@ -43,31 +43,30 @@ tasks.withType<Test> {
  */
 tasks.register<Exec>("buildReact") {
 	doFirst {
-		workingDir("./frontend")
+		workingDir("./ui")
 		commandLine("npm", "run", "build")
 	}
 }
 
 /**
- * ReactモジュールをSpringにもってくるタスク
+ * ReactモジュールをSpring側にもってくるタスク
  */
 tasks.register("moveBuildModule") {
 	doFirst {
-
 		// 既存のファイルを削除
 		project.delete("src/main/resources/templates/public")
 		project.delete("src/main/resources/static")
 
 		// 新しいモジュールをいれる
 		copy {
-			from("frontend/build") {
+			from("ui/build") {
 				exclude("static")
 			}
 			into("src/main/resources/templates/public")
 		}
 
 		copy {
-			from("frontend/build/static")
+			from("ui/build/static")
 			into("src/main/resources/static")
 		}
 	}
@@ -84,8 +83,3 @@ tasks.named("bootRun") {
 	dependsOn("buildReact")
 	dependsOn("moveBuildModule")
 }
-
-/**
- * Task :processResourcesはあらゆるタスクに優先して実行されるため、
- * cdReactというタスクを用意してもbuild側が移動させないと、いつビルドが終わってるのかわからない
- */

@@ -1,4 +1,4 @@
-package com.example.sociallogindemo.auth.presentations.response;
+package com.example.sociallogindemo.app.presentations.response;
 
 import java.io.Serializable;
 

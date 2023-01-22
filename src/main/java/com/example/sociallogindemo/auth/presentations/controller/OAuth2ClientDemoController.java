@@ -15,6 +15,7 @@ public class OAuth2ClientDemoController {
         return "login";
     }
 
+    // これのおかげでリソースにアクセスできてる？
     @GetMapping("{path:^(?!.*static).*$}/**")
     public String any() {
         return "public/index";
