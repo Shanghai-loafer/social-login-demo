@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="jp" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>ログインデモ</title>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="icon" href="/public/favicon.ico"/>
 </head>
-<body>
-<link rel="apple-touch-icon" th:href="@{/media/logo192.png}"/>
-<div class="main-wrap">
-  <form class="form-signin" th:action="@{/login}" method="post">
-    <p>
-      <input type="text" id="username" name="username" class="form-control" placeholder="ユーザID" required autofocus>
-    </p>
-    <p>
-      <input type="password" id="password" name="password" class="form-control" placeholder="パスワード" required>
-    </p>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
-  </form>
-  <div class="login-form">
-    <h3>ログイン</h3>
-    <div class="login-button">
-      <a th:href="@{/oauth2/authorization/github}">
-        <span><i class="fab fa-github"></i>GitHubでログイン</span>
-      </a>
+
+<body class="text-center">
+<div class="container">
+    <div class="row my-5"></div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 border rounded">
+            <div class="alert alert-danger mt-3" role="alert" th:if="${param.error}">
+                ユーザ名とパスワードが一致しません。
+            </div>
+            <div class="alert alert-primary mt-3" role="alert" th:if="${param.logout}">
+                ログアウトしました。
+            </div>
+            <form th:action="@{/login}" method="post">
+                <label for="username" class="sr-only"></label>
+                <input class="form-control" id="username"
+                       type="text" name="username" placeholder="ユーザID" required autofocus/>
+                <label for="password" class="sr-only"></label>
+                <input class="form-control" id="password"
+                       type="password" name="password" placeholder="パスワード" required/>
+                <input class="form-control btn btn-primary mt-3 md-0" type="submit" value="ログイン"/>
+            </form>
+            <hr>
+            <p>
+                <a class="btn btn-block btn-outline-primary"
+                   th:href="@{/oauth2/authorization/google}"><i class="fab fa-google"></i>Googleでログイン</span>
+                </a>
+                <a class="btn btn-block btn-outline-secondary"
+                   th:href="@{/oauth2/authorization/github}"><i class="fab fa-github"></i>GitHubでログイン</span>
+                </a>
+            </p>
+        </div>
+        <div class="col-4"></div>
+
     </div>
-    <div class="login-button">
-      <a th:href="@{/oauth2/authorization/google}">
-        <span><i class="fab fa-google"></i>Googleでログイン</span>
-      </a>
-    </div>
-  </div>
+    <div class="row my-5"></div>
+
 </div>
 </body>
 </html>

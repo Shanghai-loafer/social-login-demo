@@ -1,3 +1,7 @@
+## 課題
+* ログアウトはapiからしてあげるひつようあるかも
+  * ページ繊維が効かないので
+
 # 概要
 ## 特徴
 * ソーシャルログインをSpring側で実装
@@ -40,3 +44,4 @@ src/main/resources/public はビルド結果なので .gitignore に含めてい
 
 # 参考文献
 * https://www.hypertextcandy.com/create-react-app-on-spring-boot
+* https://baubaubau.hatenablog.com/entry/2021/01/05/190040

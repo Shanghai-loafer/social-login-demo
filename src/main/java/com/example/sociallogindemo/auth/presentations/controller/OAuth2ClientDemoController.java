@@ -11,14 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class OAuth2ClientDemoController {
 
     @GetMapping("/login")
-    String loginAsGet() {
+    String getLogin() {
         return "login";
-    }
-
-    // これのおかげでリソースにアクセスできてる？
-    @GetMapping("{path:^(?!.*static).*$}/**")
-    public String any() {
-        return "public/index";
     }
 
     @GetMapping("/")

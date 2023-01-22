@@ -5,10 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -25,6 +21,8 @@ public class SecurityConfig {
                 .formLogin(customizer -> customizer
                         // 最終的な認証済みユーザーオブジェクトをどう生成するのか
                         .defaultSuccessUrl("/")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
                         .failureUrl("/login?error")
                         .loginPage("/login").permitAll()
                 )
@@ -38,19 +36,5 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout").permitAll()
                 )
                 .build();
-    }
-
-    @Bean
-    UserDetails userDetailsService() {
-        return User.builder()
-                .username("user")
-                .password("password")
-                .roles("ADMIN")
-                .build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
