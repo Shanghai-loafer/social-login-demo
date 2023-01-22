@@ -39,6 +39,6 @@ out/
 ### 拡張 ###
 /src/main/resources/static/
 /src/main/resources/public/
-/frontend/build
-/frontend/node_modules
+/frontend/build/
+/frontend/node_modules/
 
