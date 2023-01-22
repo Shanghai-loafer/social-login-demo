@@ -43,12 +43,33 @@ tasks.withType<Test> {
  */
 tasks.register<Exec>("buildReact") {
 	doFirst {
-
-		// サーバサイドのほうから既存のモジュール削除しなくちゃ
-
 		workingDir("./frontend")
-		println(commandLine ("pwd"))
 		commandLine("npm", "run", "build")
+	}
+}
+
+/**
+ * ReactモジュールをSpringにもってくるタスク
+ */
+tasks.register("moveBuildModule") {
+	doFirst {
+
+		// 既存のファイルを削除
+		project.delete("src/main/resources/templates/public")
+		project.delete("src/main/resources/static")
+
+		// 新しいモジュールをいれる
+		copy {
+			from("frontend/build") {
+				exclude("static")
+			}
+			into("src/main/resources/templates/public")
+		}
+
+		copy {
+			from("frontend/build/static")
+			into("src/main/resources/static")
+		}
 	}
 }
 
@@ -57,9 +78,11 @@ tasks.register<Exec>("buildReact") {
  */
 tasks.named("build") {
 	dependsOn("buildReact")
+	dependsOn("moveBuildModule")
 }
 tasks.named("bootRun") {
 	dependsOn("buildReact")
+	dependsOn("moveBuildModule")
 }
 
 /**

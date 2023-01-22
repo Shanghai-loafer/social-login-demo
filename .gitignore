@@ -38,7 +38,7 @@ out/
 
 ### 拡張 ###
 /src/main/resources/static/
-/src/main/resources/public/
+/src/main/resources/templates/public/
 /frontend/build/
 /frontend/node_modules/
 
