@@ -7,7 +7,7 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-    <link rel="icon" href="/public/favicon.ico"/>
+    <link rel="icon" href="./public/favicon.ico"/>
 </head>
 
 <body class="text-center">
@@ -25,11 +25,11 @@
             <form th:action="@{/login}" method="post">
                 <label for="username" class="sr-only"></label>
                 <input class="form-control" id="username"
-                       type="text" name="username" placeholder="ユーザID" required autofocus/>
+                       type="text" name="username" placeholder="ユーザ名" required autofocus/>
                 <label for="password" class="sr-only"></label>
                 <input class="form-control" id="password"
                        type="password" name="password" placeholder="パスワード" required/>
-                <input class="form-control btn btn-primary mt-3 md-0" type="submit" value="ログイン"/>
+                <input class="form-control btn btn-primary mt-3" type="submit" value="ログイン"/>
             </form>
             <hr>
             <p>
