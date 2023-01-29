@@ -9,6 +9,8 @@
   * JESSONIDとかいうものらしい
 * ユーザの新規登録をつくらないと
 * フォームログインをJWTとかにして、一応セキュリティも向上させつつユーザサービスを改変できるような形にしておくと。
+* Domaを含めたgradleのいい感じの設定をつくりたい。
+* Swaggerなんかを利用してAPIをさくっとドキュメント化したいな。
 
 # 概要
 ## 特徴
@@ -56,5 +58,11 @@ src/main/resources/public はビルド結果なので .gitignore に含めてい
 # 参考文献
 * https://www.hypertextcandy.com/create-react-app-on-spring-boot
 * https://baubaubau.hatenablog.com/entry/2021/01/05/190040
+* https://springdoc.org/v2/
+* https://ksby.hatenablog.com/entry/2021/03/25/072126
+* https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b
+* https://zenn.dev/beijaflor/articles/3d554e51bb20c6
+* https://springdoc.org/
+* https://techblog.zozo.com/entry/coexistence-of-openapi-and-spring
 
 ### Domaのインストールガイド

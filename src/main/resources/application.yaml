@@ -2,6 +2,9 @@ server:
   servlet:
     session:
       timeout: 30m
+springdoc:
+  api-docs.path: /api-docs
+  swagger-ui.path: /swagger-ui.html
 spring:
   mvc:
     static-path-pattern: /static/**

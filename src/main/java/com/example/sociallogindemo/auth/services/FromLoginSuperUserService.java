@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FromLoginSuperUserService implements UserDetailsService {
 
-  // あ、これでいけてるってことか。
-
   private final PasswordEncoder passwordEncoder;
 
   @Override
@@ -23,16 +21,11 @@ public class FromLoginSuperUserService implements UserDetailsService {
     }
 
     // 本来ならDBアクセスしてパスワードを取得するところだが、サンプルなのでプログラム直書き
-    String password;
-    switch (username) {
-      case "admin":
-        password = passwordEncoder.encode("admin");
-        break;
-      default:
-        throw new UsernameNotFoundException("not found");
-    }
+    String password = switch (username) {
+      case "admin" -> passwordEncoder.encode("admin");
+      default -> throw new UsernameNotFoundException("not found");
+    };
 
     return new SuperUser(username, password);
-    // return new User(username, password, Collections.emptySet());
   }
 }

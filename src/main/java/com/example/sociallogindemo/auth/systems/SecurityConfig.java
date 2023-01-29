@@ -35,6 +35,8 @@ public class SecurityConfig {
                 customizer
                     .requestMatchers(HttpMethod.POST, "/api/login")
                     .permitAll()
+                    .requestMatchers("/api/swagger-ui.html")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
         .formLogin(
