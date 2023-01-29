@@ -7,7 +7,7 @@ export const ApiFetch = () => {
 
     useEffect(() => {
         // APIをfetchする(呼び出す)
-        fetch("http://localhost:8080/api/fetch", { method: "GET" })
+        fetch("http://localhost:8080/api/birthstone", { method: "GET" })
         // レスポンスのデータ形式をjsonに設定
         .then((res) => res.json())
         // APIから渡されるレスポンスデータ(data)をstateにセットする

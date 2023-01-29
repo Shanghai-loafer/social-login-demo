@@ -2,6 +2,13 @@
 * ログアウトはapiからしてあげるひつようあるかも
   * ページ遷移が効かないので、Apiを叩いてあげる必要がある
 * どうにかして、ファビコンを参照できないかな。
+* ログイン情報をUserにどう保存するか。
+  * すくなくともソーシャルログインの都合上、どうするか
+  * どこ経由のログインなのかと一意になる条件からユーザー情報を取得？
+  * まず何をもって、ログインが成功しているかどうか認証してるんだろう。
+  * JESSONIDとかいうものらしい
+* ユーザの新規登録をつくらないと
+* フォームログインをJWTとかにして、一応セキュリティも向上させつつユーザサービスを改変できるような形にしておくと。
 
 # 概要
 ## 特徴
@@ -20,20 +27,23 @@ $ npx create-react-app --template typescript ui
 ```
 
 ### 3. package.jsonにプロキシーを設定
+イメージとしては以下の感じ
 ```json
+{
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-    },
-"proxy": "http://localhost:8080",
-"eslintConfig": {
-"extends": [
-    "react-app",
-    "react-app/jest"
+  },
+  "proxy": "http://localhost:8080",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
-},
+  }
+}
 ```
 
 ### 4. build.gradle.ktsにui側の情報を設定
@@ -46,3 +56,5 @@ src/main/resources/public はビルド結果なので .gitignore に含めてい
 # 参考文献
 * https://www.hypertextcandy.com/create-react-app-on-spring-boot
 * https://baubaubau.hatenablog.com/entry/2021/01/05/190040
+
+### Domaのインストールガイド

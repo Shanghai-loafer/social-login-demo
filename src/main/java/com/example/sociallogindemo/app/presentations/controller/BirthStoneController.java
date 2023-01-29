@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class BirthStoneController {
 
-    @GetMapping("/fetch")
-    @ResponseBody
-    public BirthStone getBirthStone() {
-        BirthStone birthStone = new BirthStone();
-        birthStone.setMonth("2月");
-        birthStone.setName("アメジスト");
-        birthStone.setColor("紫");
-        return birthStone;
-    }
-
+  @GetMapping("/birthstone")
+  @ResponseBody
+  public BirthStone getBirthStone() {
+    BirthStone birthStone = new BirthStone();
+    birthStone.setMonth("2月");
+    birthStone.setName("アメジスト");
+    birthStone.setColor("紫");
+    return birthStone;
+  }
 }

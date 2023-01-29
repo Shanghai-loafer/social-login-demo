@@ -1,7 +1,9 @@
 package com.example.sociallogindemo.auth.presentations.controller;
 
+import com.example.sociallogindemo.auth.systems.SuperUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -10,21 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class OAuth2ClientDemoController {
 
-    @GetMapping("/login")
-    String getLogin() {
-        return "login";
-    }
+  @GetMapping("/login")
+  String getLogin() {
+    return "login";
+  }
 
-    @GetMapping("/")
-    public String index() {
+  @GetMapping("/")
+  public String index(@AuthenticationPrincipal SuperUser user) {
 
-        // 処理自体は通ってるっぽいんだけど、どうにもページへの移動がうまく言ってない気がする。
+    log.info(user.getName());
 
-        /**
-         * なにかしらの手段でもってユーザー情報やトークンをフロントエンドに渡す必要がある。
-         */
-
-        return "public/index";
-    }
-
+    /** なにかしらの手段でもってユーザー情報やトークンをフロントエンドに渡す必要がある。 */
+    return "public/index";
+  }
 }
