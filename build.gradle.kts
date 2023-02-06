@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.0.0"
 	id("io.spring.dependency-management") version "1.1.0"
+	id("org.domaframework.doma.compile") version "2.0.0" apply false
 	id("com.diffplug.spotless") version "6.14.0"
 }
 
@@ -26,14 +27,19 @@ repositories {
 }
 
 dependencies {
+	val domaVersion: String by project
+	annotationProcessor("org.seasar.doma:doma-processor:${domaVersion}")
+	implementation("org.seasar.doma:doma-core:${domaVersion}")
+	implementation("org.seasar.doma:doma-slf4j:${domaVersion}")
+	implementation("org.seasar.doma.boot", "doma-spring-boot-starter" , "1.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	implementation ("org.springframework.security:spring-security-oauth2-jose")
-	implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
-	implementation ("io.jsonwebtoken:jjwt-impl:0.11.5")
-	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("mysql", "mysql-connector-java", "8.0.32")
+
 	implementation("org.springdoc", "springdoc-openapi-starter-webmvc-ui","2.0.2")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
@@ -41,8 +47,6 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 }
-
-
 
 tasks.withType<Test> {
 	useJUnitPlatform()

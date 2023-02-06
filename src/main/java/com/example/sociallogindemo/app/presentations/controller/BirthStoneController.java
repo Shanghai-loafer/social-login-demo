@@ -19,12 +19,12 @@ public class BirthStoneController {
 
   @GetMapping("/birthstone")
   @ResponseBody
-  @Operation(summary = "誕生石データを取得する",
-          description = "誕生石データをサービスを通さずに取得するただのダミー")
-  @ApiResponses(value = {
-          @ApiResponse(responseCode = "200", description = "成功"),
-          @ApiResponse(responseCode = "405", description = "入力チェックエラー")
-  })
+  @Operation(summary = "誕生石データを取得する", description = "誕生石データをサービスを通さずに取得するただのダミー")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "200", description = "成功"),
+        @ApiResponse(responseCode = "405", description = "入力チェックエラー")
+      })
   public BirthStone getBirthStone() {
     BirthStone birthStone = new BirthStone();
     birthStone.setMonth("2月");

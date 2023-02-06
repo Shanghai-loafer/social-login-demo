@@ -17,8 +17,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
  */
 public class SuperUser extends User implements OidcUser, OAuth2User {
 
+  /**
+   * 権限が必要のないユーザに対してはこれ そもそもSPAでつくっている都合上、権限というものが正しくどうさするのか非常に怪しいな。 REST
+   * API経由のリクエストだけは権限付とかには一応できるのか。
+   *
+   * @param username
+   * @param password
+   */
   public SuperUser(String username, String password) {
-    // forDUMMY
     super(username, password, Collections.emptySet());
   }
 
@@ -32,21 +38,29 @@ public class SuperUser extends User implements OidcUser, OAuth2User {
     return null;
   }
 
-  // これなに？
+  /**
+   * これ、何に使うの？
+   *
+   * @return
+   */
   @Override
   public OidcUserInfo getUserInfo() {
-    return null;
+    throw new RuntimeException("呼び出さないでー");
   }
 
-  // これなに？
+  /**
+   * これ、何に使うの？
+   *
+   * @return
+   */
   @Override
   public OidcIdToken getIdToken() {
-    return null;
+    throw new RuntimeException("呼び出さないでー");
   }
 
   @Override
   public Map<String, Object> getAttributes() {
-    return null;
+    throw new RuntimeException("呼び出さないでー");
   }
 
   @Override

@@ -1,8 +1,11 @@
 package com.example.sociallogindemo.auth.services;
 
+import com.example.sociallogindemo.auth.domains.repository.UserRepository;
+import com.example.sociallogindemo.auth.infrastructures.database.doma.entity.User;
 import com.example.sociallogindemo.auth.systems.SuperUser;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -15,7 +18,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("Demo")
+@RequiredArgsConstructor
 public class OAuth2SuperUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
+  private final UserRepository userRepository;
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -36,7 +42,9 @@ public class OAuth2SuperUserService implements OAuth2UserService<OAuth2UserReque
     // oAuth2User = new DefaultOAuth2User(mappedAuthorities, oAuth2User.getAttributes(),
     // oAuth2User.getName());
 
+    User user = userRepository.getUser("Github");
+
     // ここに共通のアレを渡す
-    return new SuperUser("Github", "DUMMY");
+    return new SuperUser(user.getName(), user.getPassword());
   }
 }
