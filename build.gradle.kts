@@ -2,17 +2,24 @@ buildscript {
     repositories {
         mavenCentral()
     }
+
+    dependencies {
+        // FIXME 記述の重複があるから、省略できるようにしたいな。
+        classpath("mysql", "mysql-connector-java", "8.0.32")
+    }
 }
-
-
 
 plugins {
     java
     id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
-    id("org.domaframework.doma.compile") version "2.0.0" apply false
+    id("org.domaframework.doma.compile") version "2.0.0"
     id("org.domaframework.doma.codegen") version "2.0.0"
     id("com.diffplug.spotless") version "6.14.0"
+}
+
+repositories {
+    mavenCentral()
 }
 
 spotless {
@@ -21,7 +28,7 @@ spotless {
     }
 }
 
-group = "com.example"
+group = "com.example.social.login.demo"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -53,23 +60,27 @@ dependencies {
 
 }
 
-val generateRootPackageName = "com.example.sociallogindemo"
+val generateRootPackageName = "com.example.social.login.demo.auth.infrastructures.database.doma"
+val dbUrl = property("DB_URL").toString()
+val dbUserName = property("DB_USERNAME").toString()
+val dbPassword = property("DB_PASSWORD").toString()
+val dbSchema = property("DB_SCHEMA").toString()
 
 domaCodeGen {
-//    getByName("dev") {
-//        setUrl("jdbc:xxxx:/ホスト名/スキーマ名")
-//        setUser("...")
-//        setPassword("...")
-//
-//        setTemplateDir(file("${projectDir}/src/main/resources/templates/doma-gen/"))
-//
-//        entity {
-//            setPackageName("${generateRootPackageName}.entity")
-//        }
-//        dao {
-//            setPackageName("${generateRootPackageName}.dao")
-//        }
-//    }
+    register("dev") {
+        url.set("${dbUrl}/${dbSchema}")
+        user.set("${dbUserName}")
+        password.set("${dbPassword}")
+
+        templateDir.set(file("${projectDir}/src/main/resources/templates/doma-gen/"))
+
+        entity {
+            packageName.set("${generateRootPackageName}.entity")
+        }
+        dao {
+            packageName.set("${generateRootPackageName}.dao")
+        }
+    }
 }
 
 tasks.withType<Test> {
