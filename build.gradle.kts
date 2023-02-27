@@ -50,6 +50,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.modelmapper:modelmapper:2.3.5")
     implementation("mysql", "mysql-connector-java", "8.0.32")
 
     implementation("org.springdoc", "springdoc-openapi-starter-webmvc-ui", "2.0.2")
@@ -61,6 +62,7 @@ dependencies {
 }
 
 val generateRootPackageName = "com.example.social.login.demo.auth.infrastructures.database.doma"
+// any<?>とやらの型で返されるので、文字列型に変換する必要がある。
 val dbUrl = property("DB_URL").toString()
 val dbUserName = property("DB_USERNAME").toString()
 val dbPassword = property("DB_PASSWORD").toString()

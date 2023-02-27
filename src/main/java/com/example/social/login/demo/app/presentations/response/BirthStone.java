@@ -1,12 +1,10 @@
 package com.example.social.login.demo.app.presentations.response;
 
-import java.io.Serializable;
+import com.example.social.login.demo.auth.systems.modelmapper.Mappable;
 import lombok.Data;
 
 @Data
-public class BirthStone implements Serializable {
-
-  private static final long serialVersionUID = 1L;
+public class BirthStone implements Mappable {
 
   /** 月 */
   private String month;

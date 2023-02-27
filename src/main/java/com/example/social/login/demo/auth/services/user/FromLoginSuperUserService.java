@@ -1,4 +1,4 @@
-package com.example.social.login.demo.auth.services;
+package com.example.social.login.demo.auth.services.user;
 
 import com.example.social.login.demo.auth.domains.repository.UserRepository;
 import com.example.social.login.demo.auth.systems.SuperUser;

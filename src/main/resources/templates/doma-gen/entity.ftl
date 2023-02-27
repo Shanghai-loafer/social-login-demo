@@ -1,29 +1,29 @@
 <#-- See also org.seasar.doma.gradle.codegen.desc.EntityDesc -->
 <#import "/lib.ftl" as lib>
 <#if lib.copyright??>
-${lib.copyright}
+  ${lib.copyright}
 </#if>
 <#if packageName??>
-package ${packageName};
+  package ${packageName};
 </#if>
 
 <#list importNames as importName>
-import ${importName};
+  import ${importName};
 </#list>
 
 /**
 <#if showDbComment && comment??>
- * ${comment}
+  * ${comment}
 </#if>
 <#if lib.author??>
- * @author ${lib.author}
+  * @author ${lib.author}
 </#if>
- */
+*/
 @Entity<#if useListener || namingType != "NONE" || useMetamodel>(</#if><#if useListener>listener = ${listenerClassSimpleName}.class</#if><#if namingType != "NONE"><#if useListener>, </#if>naming = ${namingType.referenceName}</#if><#if useMetamodel><#if useListener || namingType != "NONE">, </#if>metamodel = @Metamodel</#if><#if useListener || namingType != "NONE" || useMetamodel>)</#if>
 <#if showCatalogName && catalogName?? || showSchemaName && schemaName?? || showTableName && tableName??>
-@Table(<#if showCatalogName && catalogName??>catalog = "${catalogName}"</#if><#if showSchemaName && schemaName??><#if showCatalogName && catalogName??>, </#if>schema = "${schemaName}"</#if><#if showTableName><#if showCatalogName && catalogName?? || showSchemaName && schemaName??>, </#if>name = "${tableName}"</#if>)
+  @Table(<#if showCatalogName && catalogName??>catalog = "${catalogName}"</#if><#if showSchemaName && schemaName??><#if showCatalogName && catalogName??>, </#if>schema = "${schemaName}"</#if><#if showTableName><#if showCatalogName && catalogName?? || showSchemaName && schemaName??>, </#if>name = "${tableName}"</#if>)
 </#if>
-public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if><#if superclassSimpleName??> extends ${superclassSimpleName}</#if> {
+public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if><#if superclassSimpleName??> extends ${superclassSimpleName}</#if> implements com.example.social.login.demo.auth.systems.modelmapper.Mappable {
 <#list ownEntityPropertyDescs as property>
 
   <#if showDbComment && property.comment??>
@@ -34,11 +34,11 @@ public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySu
   <#if property.id>
     @Id
     <#if property.generationType??>
-    @GeneratedValue(strategy = ${property.generationType.referenceName})
+      @GeneratedValue(strategy = ${property.generationType.referenceName})
       <#if property.generationType == "SEQUENCE">
-    @SequenceGenerator(sequence = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
+        @SequenceGenerator(sequence = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
       <#elseif property.generationType == "TABLE">
-    @TableGenerator(pkColumnValue = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
+        @TableGenerator(pkColumnValue = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
       </#if>
     </#if>
   </#if>
@@ -48,33 +48,33 @@ public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySu
   <#if property.showColumnName && property.columnName??>
     @Column(name = "${property.columnName}")
   </#if>
-    <#if !useAccessor>public </#if>${property.propertyClassSimpleName} ${property.name};
+  <#if !useAccessor>public </#if>${property.propertyClassSimpleName} ${property.name};
 </#list>
 <#if originalStatesPropertyName??>
 
-    /** */
-    @OriginalStates
-    <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if> ${originalStatesPropertyName};
+  /** */
+  @OriginalStates
+  <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if> ${originalStatesPropertyName};
 </#if>
 <#if useAccessor>
   <#list ownEntityPropertyDescs as property>
 
-    /** 
-     * Returns the ${property.name}.
-     * 
-     * @return the ${property.name}
-     */
+    /**
+    * Returns the ${property.name}.
+    *
+    * @return the ${property.name}
+    */
     public ${property.propertyClassSimpleName} get${property.name?cap_first}() {
-        return ${property.name};
+    return ${property.name};
     }
 
-    /** 
-     * Sets the ${property.name}.
-     * 
-     * @param ${property.name} the ${property.name}
-     */
+    /**
+    * Sets the ${property.name}.
+    *
+    * @param ${property.name} the ${property.name}
+    */
     public void set${property.name?cap_first}(${property.propertyClassSimpleName} ${property.name}) {
-        this.${property.name} = ${property.name};
+    this.${property.name} = ${property.name};
     }
   </#list>
 </#if>

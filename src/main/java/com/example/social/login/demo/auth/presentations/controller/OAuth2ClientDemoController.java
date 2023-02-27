@@ -22,7 +22,6 @@ public class OAuth2ClientDemoController {
 
     log.info(user.getName());
 
-    /** なにかしらの手段でもってユーザー情報やトークンをフロントエンドに渡す必要がある。 */
     return "public/index";
   }
 }
