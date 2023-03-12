@@ -62,7 +62,7 @@ dependencies {
 }
 
 val generateRootPackageName = "com.example.social.login.demo.auth.infrastructures.database.doma"
-// any<?>とやらの型で返されるので、文字列型に変換する必要がある。
+// any<?>で返されるので、文字列型に変換する必要がある。
 val dbUrl = property("DB_URL").toString()
 val dbUserName = property("DB_USERNAME").toString()
 val dbPassword = property("DB_PASSWORD").toString()
@@ -128,9 +128,15 @@ tasks.register("moveBuildModule") {
  */
 tasks.named("build") {
     dependsOn("buildReact")
+    /**
+     * なぜかビルドの移動が実行されないな。
+     */
     dependsOn("moveBuildModule")
 }
 tasks.named("bootRun") {
     dependsOn("buildReact")
+    /**
+     * なぜかビルドの移動が実行されないな。
+     */
     dependsOn("moveBuildModule")
 }

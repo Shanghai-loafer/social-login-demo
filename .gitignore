@@ -42,3 +42,5 @@ out/
 /frontend_old/build/
 /frontend_old/node_modules/
 
+### プロパティ系 ###
+/src/main/resources/application.yaml
