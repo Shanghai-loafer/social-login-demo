@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.description
+
 buildscript {
     repositories {
         mavenCentral()
@@ -15,17 +17,10 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     id("org.domaframework.doma.compile") version "2.0.0"
     id("org.domaframework.doma.codegen") version "2.0.0"
-    id("com.diffplug.spotless") version "6.14.0"
 }
 
 repositories {
     mavenCentral()
-}
-
-spotless {
-    java {
-        googleJavaFormat()
-    }
 }
 
 group = "com.example.social.login.demo"
@@ -61,18 +56,16 @@ dependencies {
 
 }
 
-val generateRootPackageName = "com.example.social.login.demo.auth.infrastructures.database.doma"
-// any<?>で返されるので、文字列型に変換する必要がある。
-val dbUrl = property("DB_URL").toString()
-val dbUserName = property("DB_USERNAME").toString()
-val dbPassword = property("DB_PASSWORD").toString()
-val dbSchema = property("DB_SCHEMA").toString()
-
+val generateRootPackageName:String = "com.example.social.login.demo.auth.infrastructures.database.doma"
+val DB_URL: String by project
+val DB_USERNAME: String by project
+val DB_PASSWORD: String by project
+val DB_SCHEMA: String by project
 domaCodeGen {
     register("dev") {
-        url.set("${dbUrl}/${dbSchema}")
-        user.set("${dbUserName}")
-        password.set("${dbPassword}")
+        url.set("${DB_URL}/${DB_SCHEMA}")
+        user.set("${DB_USERNAME}")
+        password.set("${DB_PASSWORD}")
 
         templateDir.set(file("${projectDir}/src/main/resources/templates/doma-gen/"))
 
@@ -90,20 +83,16 @@ tasks.withType<Test> {
 }
 
 /**
- * Gradleからnpm buildを実行するタスク
+ * Reactのビルドを実行するタスク
  */
 tasks.register<Exec>("buildReact") {
     doFirst {
+        println("ビルド開始")
         workingDir("./ui")
         commandLine("npm", "run", "build")
     }
-}
-
-/**
- * ReactモジュールをSpring側にもってくるタスク
- */
-tasks.register("moveBuildModule") {
-    doFirst {
+    doLast {
+        println("ビルドファイル移動")
         // 既存のファイルを削除
         project.delete("src/main/resources/templates/public")
         project.delete("src/main/resources/static")
@@ -125,18 +114,12 @@ tasks.register("moveBuildModule") {
 
 /**
  * サーバサイド側標準ビルドタスクにReactのビルドを関連付ける
+ * これ本当はコンパイル前に依存してないといけないんだけどなー
+ * これもしかしてdomagenのタスクが追加された結果としておかしくなったのかな？
  */
 tasks.named("build") {
     dependsOn("buildReact")
-    /**
-     * なぜかビルドの移動が実行されないな。
-     */
-    dependsOn("moveBuildModule")
 }
 tasks.named("bootRun") {
     dependsOn("buildReact")
-    /**
-     * なぜかビルドの移動が実行されないな。
-     */
-    dependsOn("moveBuildModule")
 }
