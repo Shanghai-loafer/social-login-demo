@@ -1,0 +1,10 @@
+description: 200 (OK)
+content:
+  application/json:
+    schema:
+      $ref: ./user.yaml
+headers:
+  http_status:
+    description: HTTPステータス
+    schema:
+      type: integer

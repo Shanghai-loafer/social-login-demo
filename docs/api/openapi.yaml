@@ -1,0 +1,46 @@
+# openapi.yaml
+openapi: 3.0.3
+info:
+  title: Sample API
+  description: Sample API
+  version: 1.0.0
+  contact:
+    name: Sample
+    email: sample@example.com
+servers:
+  - url: https://example.com/api/v0
+    description: プロダクション API
+  - url: http://{host}:{port}/api/v0
+    description: 開発用
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '8080'
+paths:
+  '/api/birthstone':
+    get:
+      operationId: get-birthstone
+      summary: BirthStone API
+      description: 誕生石情報を取得します
+      parameters:
+        - in: query
+          name: user_id
+          description: ユーザーID
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+      tags:
+        - User
+      responses:
+        '200':
+          $ref: ./schemas/user-response.yaml
+        '400':
+          description: 400 (Bad Request)
+          headers:
+            http_status:
+              description: HTTPステータス
+              schema:
+                type: integer

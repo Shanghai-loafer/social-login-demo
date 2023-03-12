@@ -1,12 +1,9 @@
-import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.description
-
 buildscript {
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        // FIXME 記述の重複があるから、省略できるようにしたいな。
         classpath("mysql", "mysql-connector-java", "8.0.32")
     }
 }
@@ -56,7 +53,7 @@ dependencies {
 
 }
 
-val generateRootPackageName:String = "com.example.social.login.demo.auth.infrastructures.database.doma"
+val DOMA_DIR: String by project
 val DB_URL: String by project
 val DB_USERNAME: String by project
 val DB_PASSWORD: String by project
@@ -70,10 +67,10 @@ domaCodeGen {
         templateDir.set(file("${projectDir}/src/main/resources/templates/doma-gen/"))
 
         entity {
-            packageName.set("${generateRootPackageName}.entity")
+            packageName.set("${DOMA_DIR}.entity")
         }
         dao {
-            packageName.set("${generateRootPackageName}.dao")
+            packageName.set("${DOMA_DIR}.dao")
         }
     }
 }
@@ -105,6 +102,7 @@ tasks.register<Exec>("buildReact") {
             into("src/main/resources/templates/public")
         }
 
+        // 静的リソースをいれる
         copy {
             from("ui/build/static")
             into("src/main/resources/static")
