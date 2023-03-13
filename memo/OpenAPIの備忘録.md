@@ -42,3 +42,4 @@ https://editor-next.swagger.io/
 * [作って理解する OpenAPI 3.0 / connexion](https://qiita.com/halhorn/items/e47673eecc4a01ffb3a0)
 * [OpenAPI (Swagger) 超入門](https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b)
 * [YAML 入門: サンプルから学べる初心者向けガイド](https://circleci.com/ja/blog/what-is-yaml-a-beginner-s-guide/)
+* [平静を保ち、コードを生成せよ 〜 OpenAPI Generator誕生の背景と軌跡 〜](https://speakerdeck.com/akihito_nakano/gunmaweb34)
