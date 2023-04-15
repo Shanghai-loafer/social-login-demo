@@ -34,6 +34,9 @@ https://editor-next.swagger.io/
 * components
   * paths 等から使えるコンポーネントを記載
 
+## メモ
+生成されるのはアプリケーションのベースごとなので、skipオプションを利用して不要なものまで作成されないように制御しないといけないわけか。
+
 ## 参考
 * [OpenAPI Specificationの紹介](https://www.alpha.co.jp/blog/202208_02)
 * [OpenAPI Generatorのコード生成とSpring Frameworkのカスタムデータバインディングを共存させる

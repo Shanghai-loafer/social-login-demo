@@ -31,6 +31,7 @@ configurations {
 }
 
 dependencies {
+    implementation("org.testng:testng:7.1.0")
     val domaVersion: String by project
     annotationProcessor("org.seasar.doma:doma-processor:${domaVersion}")
     implementation("org.seasar.doma:doma-core:${domaVersion}")
@@ -40,6 +41,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-jose")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.modelmapper:modelmapper:2.3.5")

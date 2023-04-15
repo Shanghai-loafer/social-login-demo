@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: sample@example.com
+    name: Sample
+  description: Sample API
+  title: Sample API
+  version: 1.0.0
+servers:
+- description: プロダクション API
+  url: https://example.com/api/v0
+- description: 開発用
+  url: "http://{host}:{port}/api/v0"
+  variables:
+    host:
+      default: localhost
+    port:
+      default: "8080"
+paths:
+  /api/birthstone:
+    get:
+      description: 誕生石情報を取得します
+      operationId: get-birthstone
+      parameters:
+      - description: ユーザーID
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          example: 123
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: 200 (OK)
+          headers:
+            http_status:
+              description: HTTPステータス
+              schema:
+                type: integer
+        "400":
+          description: 400 (Bad Request)
+          headers:
+            http_status:
+              description: HTTPステータス
+              explode: false
+              schema:
+                type: integer
+              style: simple
+      summary: BirthStone API
+      tags:
+      - User
+      x-accepts: application/json
+      x-tags:
+      - tag: User
+components:
+  responses:
+    user-response:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/user'
+      description: 200 (OK)
+      headers:
+        http_status:
+          description: HTTPステータス
+          schema:
+            type: integer
+  schemas:
+    user:
+      example:
+        name: name
+        id: 123
+      properties:
+        id:
+          example: 123
+          format: int32
+          type: integer
+        name:
+          example: name
+          type: string
+      type: object
